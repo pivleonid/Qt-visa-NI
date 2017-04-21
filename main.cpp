@@ -2,11 +2,18 @@
 #include <visa.h>
 #include <visatype.h>
 #include <memory.h>
+//
+#include <QApplication>
+#include <ipdialog.h>
 using namespace std;
 
 
     int main(int argc, char *argv[])
 {
+        //для регулярного выражения
+    //    QApplication a(argc, argv);
+   //     IpDialog ip;
+   //     ip.show();
     cout << "Hello World!" << endl;
     ViSession	rm = VI_NULL, rm1 = VI_NULL,rm2 = VI_NULL,rm3 = VI_NULL,vi = VI_NULL;
     ViStatus	status;
@@ -42,6 +49,7 @@ using namespace std;
     viClose(rm);
 
     return 0;
+   //return a.exec();
 
 error:
     // Report error and clean up
