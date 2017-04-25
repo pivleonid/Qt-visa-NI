@@ -73,6 +73,7 @@ BaseDevice::~BaseDevice(){
  //   delete outBuffer;
 }
 
+
 QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
     QString outBuffer;
     QString adder = typeConnect + "::" + typeAdder + "::INSTR";
@@ -144,7 +145,7 @@ QString outbuffer;
         if(it.key() == status)
            outbuffer = it.value();
     }
-    //ежели такой ошибкит нет, создаю Stringbuf с этой ошибкой
+    //ежели такой ошибкит нет, создаю строку с номером этой ошибки
     if(outbuffer.isNull()){
         viStatusDesc(vi, status, buffer);
        outbuffer = QString(QByteArray(buffer)); // QString(QByteArray(buffer, 255))
