@@ -1,4 +1,5 @@
 QT += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 QT += widgets
 TEMPLATE = app
 #CONFIG += console c++11
@@ -6,23 +7,26 @@ TEMPLATE = app
 #CONFIG -= qt
 TARGET = tecFUCK
 SOURCES += main.cpp \
-         ipdialog.cpp\
-       basedevice.cpp \
-    fsl.cpp \
-    tds2024c.cpp
+           basedevice.cpp \
+           fsl.cpp \
+           tds2024c.cpp \
+           C:/Qt/qcustomplot/qcustomplot.cpp \
+           mainwindow.cpp
 INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
 
 LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
 INCLUDEPATH += "C:/Program Files/IVI Foundation/VISA/Win64/Include"
+INCLUDEPATH += "C:/Qt/qcustomplot"
 
 FORMS += \
-    ipdialog.ui
+    mainwindow.ui
 
 HEADERS += \
-    ipdialog.h\
     basedevice.h \
     fsl.h \
-    tds2024c.h
+    tds2024c.h \
+    C:/Qt/qcustomplot/qcustomplot.h \
+    mainwindow.h
 
 
 

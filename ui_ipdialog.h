@@ -30,13 +30,13 @@ public:
     {
         if (IpDialog->objectName().isEmpty())
             IpDialog->setObjectName(QStringLiteral("IpDialog"));
-        IpDialog->resize(400, 300);
+        IpDialog->resize(365, 54);
         pushButton = new QPushButton(IpDialog);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(280, 100, 93, 28));
+        pushButton->setGeometry(QRect(270, 10, 93, 28));
         lineEdit = new QLineEdit(IpDialog);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(0, 100, 241, 31));
+        lineEdit->setGeometry(QRect(10, 10, 241, 31));
 
         retranslateUi(IpDialog);
 

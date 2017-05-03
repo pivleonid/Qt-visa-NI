@@ -44,6 +44,7 @@ QList<QString> TDS2024C::Trace(){
     if(Message == NULL)
        Message = ReadDevice(40000);
     QList<QString> list_data = Message.split(',');
+    //Последний символ типа '16/n' /n надо убрать
     QString data_list = list_data.last();
     data_list = data_list.left(data_list.length() - 1);
     list_data.last() = data_list;
