@@ -7,7 +7,9 @@ TEMPLATE = app
 TARGET = tecFUCK
 SOURCES += main.cpp \
          ipdialog.cpp\
-       basedevice.cpp
+       basedevice.cpp \
+    fsl.cpp \
+    tds2024c.cpp
 INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
 
 LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
@@ -18,7 +20,9 @@ FORMS += \
 
 HEADERS += \
     ipdialog.h\
-    basedevice.h
+    basedevice.h \
+    fsl.h \
+    tds2024c.h
 
 
 

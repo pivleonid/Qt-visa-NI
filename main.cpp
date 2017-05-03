@@ -3,22 +3,21 @@
 //#include <QApplication>
 //#include <ipdialog.h>
 #include <basedevice.h>
+#include <fsl.h>
+#include <tds2024c.h>
 
 using namespace std;
 
 
     int main(int argc, char *argv[])
 {
-        BaseDevice someDevice;
-        QString a;
 
-        a = someDevice.ConnectDevice("TCPIP", "192.168.70.39");
-        a =  someDevice.IDN();
-        a =  someDevice.RST();
-        a =  someDevice.TST();
-        a =  someDevice.WAI();
-
-
+        TDS2024C TDS;
+        QString b;
+        b = TDS.ConnectDevice("USB0", "0x0699::0x03A6::C011549");
+        b = TDS.IDN();
+        b = TDS.Trace_initial("1", "2500", "CH1", "ASCII");
+        QList<QString> b1 = TDS.Trace();
         return 0;
         //для регулярного выражения
         //    QApplication a(argc, argv);

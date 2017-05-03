@@ -5,7 +5,6 @@ BaseDevice::BaseDevice()
 //    outBuffer = new QString();
     rm = VI_NULL;
     vi = VI_NULL;
-    memset(buffer, 0, sizeof(buffer)); //очистка буфера
     flag_connect = false;
     //Заполнение словаря
     {
@@ -68,12 +67,12 @@ BaseDevice::BaseDevice()
     }
 }
 
-
+/*===========================================================================*/
 BaseDevice::~BaseDevice(){
  //   delete outBuffer;
 }
-
-
+//USB0::0x0699::0x03A6::C011549::INSTR
+/*===========================================================================*/
 QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
     QString outBuffer;
     QString adder = typeConnect + "::" + typeAdder + "::INSTR";
@@ -82,14 +81,14 @@ QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
         return( outBuffer = ErrorFunction(status));
     char* adr = new char [100];
     strcpy(adr, adder.toStdString().data());
-    status = viOpen(rm, adr, VI_NULL, VI_NULL, &vi);//adder.toStdString().c_str()
+    status = viOpen(rm, adr, VI_NULL, VI_NULL, &vi);
     delete[] adr;
     if (status < VI_SUCCESS)
         return(outBuffer = ErrorFunction(status));
     flag_connect = true;
     return ("");
 }
-
+/*===========================================================================*/
 QString BaseDevice::DisconnectDevice(){
 QString outBuffer;
    status = viClose(vi);
@@ -101,45 +100,61 @@ QString outBuffer;
         flag_connect = false;
    return("");
 }
+/*===========================================================================*/
+QString BaseDevice::WriteCommand(QString command){
 
+    if( flag_connect == false)
+        return(" Не выполнена функция ConnectDevice");
+    QString outBuffer;
+    int size = command.size();
+    char* cmd = new char [100];
+    strcpy(cmd, command.toStdString().data());
+    status = viWrite(vi, (ViBuf)cmd, size, &retCnt);
+    delete[] cmd;
+    if (status < VI_SUCCESS)
+        return( outBuffer = ErrorFunction(status));
+    return("");
+
+}
+/*===========================================================================*/
+QString BaseDevice::ReadDevice( uint count){
+    char* buffer = new char[count]{};
+    if( flag_connect == false){
+        delete[] buffer;
+        return(" Не выполнена функция ConnectDevice");
+    }
+    QString outBuffer;
+    status = viRead(vi, (ViBuf) buffer, count, &retCnt);
+    if (status < VI_SUCCESS){
+        delete[] buffer;
+        return( outBuffer = ErrorFunction(status));
+    }
+    outBuffer = QString(QByteArray(buffer));
+    delete[] buffer;
+    return(outBuffer);
+}
+/*===========================================================================*/
 QString BaseDevice::IDN(){
-    QString outBuffer;
-    status = viWrite(vi, (ViBuf) "*idn?", 5, &retCnt);
-    if (status < VI_SUCCESS)
-        return( outBuffer = ErrorFunction(status));
-    memset(buffer, 0, sizeof(buffer));
-    status = viRead(vi, (ViBuf) buffer, sizeof(buffer), &retCnt);
-    if (status < VI_SUCCESS)
-        return( outBuffer = ErrorFunction(status));
-        outBuffer = QString(QByteArray(buffer));
-    return( outBuffer ); // QString(QByteArray(buffer, 255))
-}
 
+    WriteCommand("*idn?");
+    return(ReadDevice(50));
+}
+/*===========================================================================*/
 QString BaseDevice::RST(){
-    QString outBuffer;
-    status = viWrite(vi, (ViBuf) "*rst", 4, &retCnt);
-    if (status < VI_SUCCESS)
-        return( outBuffer = ErrorFunction(status));
-    return("");
+    return (WriteCommand("*rst"));
 }
+/*===========================================================================*/
 QString BaseDevice::TST(){
-    QString outBuffer;
-    status = viWrite(vi, (ViBuf) "*tst", 4, &retCnt);
-    if (status < VI_SUCCESS)
-        return( outBuffer = ErrorFunction(status));
-    return("");
-
+    return (WriteCommand("*tst"));
 }
+/*===========================================================================*/
 QString BaseDevice::WAI(){
-    QString outBuffer;
-    status = viWrite(vi, (ViBuf) "*wai", 4, &retCnt);
-    if (status < VI_SUCCESS)
-        return( outBuffer = ErrorFunction(status));
-    return("");
+    return (WriteCommand("*wai"));
 }
-
+/*===========================================================================*/
 QString BaseDevice::ErrorFunction( ViStatus status){
-QString outbuffer;
+    QString outbuffer;
+    ViChar buffer[256]{};
     QMap<int,QString>::iterator it = ErrorList.begin();
     for( ; it != ErrorList.end(); it++){
         if(it.key() == status)
@@ -152,3 +167,7 @@ QString outbuffer;
     }
     return outbuffer;
 }
+
+
+
+
