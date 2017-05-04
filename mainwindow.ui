@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>858</width>
-    <height>670</height>
+    <width>1002</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,28 +19,28 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>821</width>
+      <width>981</width>
       <height>371</height>
      </rect>
     </property>
    </widget>
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="LogList">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>500</y>
-      <width>821</width>
-      <height>121</height>
+      <x>11</x>
+      <y>448</y>
+      <width>981</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>450</y>
-      <width>821</width>
-      <height>31</height>
+      <x>12</x>
+      <y>412</y>
+      <width>981</width>
+      <height>30</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -52,10 +52,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="adderLine">
+       <property name="text">
+        <string>USB0::0x0699::0x03A6::C011549::INSTR</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="DeviceBox">
        <item>
         <property name="text">
          <string>TDS2024C</string>
@@ -69,7 +73,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="connectButton">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -78,6 +82,9 @@
        </property>
        <property name="text">
         <string>Connect</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
@@ -91,12 +98,33 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="DisconnectButton">
        <property name="enabled">
         <bool>true</bool>
        </property>
        <property name="text">
         <string>Disconnect</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="replot">
+       <property name="text">
+        <string>Перерисовка</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ButtonBufferClear">
+       <property name="text">
+        <string>Очистка логов</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="RST">
+       <property name="text">
+        <string>Перезагрузка</string>
        </property>
       </widget>
      </item>
@@ -108,7 +136,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>858</width>
+     <width>1002</width>
      <height>23</height>
     </rect>
    </property>

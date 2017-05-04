@@ -88,6 +88,22 @@ QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
     flag_connect = true;
     return ("");
 }
+
+/*===========================================================================*/
+QString BaseDevice::ConnectDeviceString(QString Connect){
+    QString outBuffer;
+    status = viOpenDefaultRM(&rm);
+    if (status < VI_SUCCESS)
+        return( outBuffer = ErrorFunction(status));
+    char* adr = new char [100];
+    strcpy(adr, Connect.toStdString().data());
+    status = viOpen(rm, adr, VI_NULL, VI_NULL, &vi);
+    delete[] adr;
+    if (status < VI_SUCCESS)
+        return(outBuffer = ErrorFunction(status));
+    flag_connect = true;
+    return ("");
+}
 /*===========================================================================*/
 QString BaseDevice::DisconnectDevice(){
 QString outBuffer;
