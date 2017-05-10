@@ -168,6 +168,14 @@ QString BaseDevice::WAI(){
     return (WriteCommand("*wai"));
 }
 /*===========================================================================*/
+QString BaseDevice::OPC(){
+    return (WriteCommand("*OPC?"));
+}
+/*===========================================================================*/
+QString BaseDevice::BUSY(){
+    return (WriteCommand("*BUSY?"));
+}
+/*===========================================================================*/
 QString BaseDevice::ErrorFunction( ViStatus status){
     QString outbuffer;
     ViChar buffer[256]{};

@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->replot, SIGNAL(clicked(bool)), this, SLOT(Replot_Image()));
         ui->replot->setEnabled(false);
         connect(ui->RST, SIGNAL(clicked(bool)),this,SLOT(ResetDevice()));
+        connect(ui->buttonTrace, SIGNAL(clicked(bool)),this, SLOT(TraceButton()));
+        ui->labelFSL->setStyleSheet("background:red;");
+        ui->labelTDS->setStyleSheet("background:red;");
 
 }
 //=======================================================
@@ -50,6 +53,8 @@ void MainWindow::discon_button(){
         delete TDS_Device;
         mainStateDevice = off;
     }
+    ui->labelFSL->setStyleSheet("background:red;");
+    ui->labelTDS->setStyleSheet("background:red;");
     ui->connectButton->setEnabled(true);
     ui->DeviceBox->setEnabled(true);
     ui->DisconnectButton->setEnabled(false);
@@ -66,13 +71,23 @@ void MainWindow::InitializeDevice(QString Divice){
  if("FSL" == Divice){
     FSL_Device = new FSL;
     mainStateDevice = fsl;
+    ui->labelFSL->setStyleSheet("background:green;");
  }
  if("TDS2024C" == Divice){
      TDS_Device = new TDS2024C;
      mainStateDevice = tds;
-     ui->LogList->addItem(TDS_Device->ConnectDeviceString(ui->adderLine->text())); //вывод в логи
+     QString Message = TDS_Device->ConnectDeviceString(ui->adderLine->text());
+     if(Message == NULL)
+         ui->labelTDS->setStyleSheet("background:green;");
+     else
+         ui->LogList->addItem(Message); //вывод в логи
      ui->LogList->addItem(TDS_Device->IDN());
-     ui->LogList->addItem(TDS_Device->Trace_initial("1", "2500", "CH1", "ASCII"));
+
+ }
+}
+
+void MainWindow::TraceButton(){
+ui->LogList->addItem(TDS_Device->Trace_initial("1", "2000", "CH1", "ASCII"));
      QList<QString> y_list = TDS_Device->Trace();
      int size_y = y_list.size();
      if(size_y < 10)//ежели будет ошибка по таймауту, то она содержится с 0 QList'е
@@ -99,9 +114,7 @@ void MainWindow::InitializeDevice(QString Divice){
      ui->widget->xAxis->setRange(0, 250);
      ui->widget->yAxis->setRange(min, max);
      ui->widget->replot();
- }
 }
-
 
 void MainWindow::Replot_Image(){
     if( mainStateDevice == tds){

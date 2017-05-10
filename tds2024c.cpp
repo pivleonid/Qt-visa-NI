@@ -23,18 +23,22 @@ QString TDS2024C::Acquire_State(QString State){
 /*=========================================================*/
 QString TDS2024C::Trace_initial(QString Start, QString Stop, QString Source, QString Encod){
     QString ErrorMessage;
-    ErrorMessage = WriteCommand("DATa:STARt " + Start);
-    if(ErrorMessage != NULL)
-        return(ErrorMessage);
-    ErrorMessage = WriteCommand("DATa:STOP " + Stop);
-    if(ErrorMessage != NULL)
-        return(ErrorMessage);
-    ErrorMessage = WriteCommand("DATa:SOUrce " + Source);
-    if(ErrorMessage != NULL)
-        return(ErrorMessage);
     ErrorMessage = WriteCommand("DATa:ENCdg " + Encod);
     if(ErrorMessage != NULL)
         return(ErrorMessage);
+    while((BUSY().toInt())){};
+    ErrorMessage = WriteCommand("DATa:SOUrce " + Source);
+    if(ErrorMessage != NULL)
+        return(ErrorMessage);
+    while((BUSY().toInt())) {};
+    ErrorMessage = WriteCommand("DATa:STARt " + Start);
+    if(ErrorMessage != NULL)
+        return(ErrorMessage);
+    while((BUSY().toInt())){};
+    ErrorMessage = WriteCommand("DATa:STOP " + Stop);
+    if(ErrorMessage != NULL)
+        return(ErrorMessage);
+    while((BUSY().toInt())){};
     return(ErrorMessage);
 }
 /*=========================================================*/
@@ -49,4 +53,11 @@ QList<QString> TDS2024C::Trace(){
     data_list = data_list.left(data_list.length() - 1);
     list_data.last() = data_list;
     return (list_data);
+}
+
+/*=========================================================*/
+
+QString TDS2024C::SelectWaveform(QString wfm, QString on_off){
+QString Message;
+Message = WriteCommand("SELect:"+wfm+" "+on_off);
 }

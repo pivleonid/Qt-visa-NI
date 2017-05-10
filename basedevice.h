@@ -66,6 +66,8 @@ public:
     QString RST();
     QString TST();
     QString WAI();
+    QString OPC();
+    QString BUSY();
 
 protected:
 

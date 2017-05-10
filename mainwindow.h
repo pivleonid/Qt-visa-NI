@@ -33,6 +33,7 @@ private slots:
     void InitializeDevice(QString Divice);
     void Replot_Image();
     void ResetDevice();
+    void TraceButton();
 };
 
 #endif // MAINWINDOW_H

@@ -55,6 +55,10 @@ public:
 */
 /*==================================================================================*/
   QList<QString> Trace( );
+
+
+
+  QString SelectWaveform(QString wfm, QString on_off);
 };
 
 #endif // TDS2024C_H
