@@ -26,12 +26,13 @@ private:
     TDS2024C* TDS_Device;
     enum stateDevice{off, tds, fsl};
     stateDevice mainStateDevice = off;
+    bool connectCompliteButton = false;
+    bool startTrace = false;
 private slots:
     void connect_button();
     void discon_button();
     void clear_log();
     void InitializeDevice(QString Divice);
-    void Replot_Image();
     void ResetDevice();
     void TraceButton();
 };

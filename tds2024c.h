@@ -57,7 +57,15 @@ public:
   QList<QString> Trace( );
 
 
+/*==================================================================================*/
+/*!  \brief
+ Настройка прибора, по которому снимается трейс
+\param [in] wfm - CH1-CH4, MATH, REFA,REFB, REFC, REFD
+\param [in] on_off - OFF или ON
 
+\return Строку QString с номером ошибки.
+*/
+/*==================================================================================*/
   QString SelectWaveform(QString wfm, QString on_off);
 };
 

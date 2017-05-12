@@ -12,8 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->DisconnectButton, SIGNAL(clicked(bool)),this, SLOT(discon_button()));
         connect(ui->ButtonBufferClear,SIGNAL(clicked(bool)),this, SLOT(clear_log()));
         ui->DisconnectButton->setEnabled(false);
-        connect(ui->replot, SIGNAL(clicked(bool)), this, SLOT(Replot_Image()));
-        ui->replot->setEnabled(false);
         connect(ui->RST, SIGNAL(clicked(bool)),this,SLOT(ResetDevice()));
         connect(ui->buttonTrace, SIGNAL(clicked(bool)),this, SLOT(TraceButton()));
         ui->labelFSL->setStyleSheet("background:red;");
@@ -33,13 +31,12 @@ MainWindow::~MainWindow()
 //=======================================================
 void MainWindow::connect_button(){
     InitializeDevice(ui->DeviceBox->currentText());
-
+    if(connectCompliteButton){
     //сделать серыми кноку и комбобокс
     ui->connectButton->setEnabled(false);
     ui->DeviceBox->setEnabled(false);
     ui->DisconnectButton->setEnabled(true);
-
-    ui->replot->setEnabled(true);
+}
 }
 //=======================================================
 void MainWindow::discon_button(){
@@ -53,6 +50,7 @@ void MainWindow::discon_button(){
         delete TDS_Device;
         mainStateDevice = off;
     }
+    connectCompliteButton = false;
     ui->labelFSL->setStyleSheet("background:red;");
     ui->labelTDS->setStyleSheet("background:red;");
     ui->connectButton->setEnabled(true);
@@ -77,52 +75,23 @@ void MainWindow::InitializeDevice(QString Divice){
      TDS_Device = new TDS2024C;
      mainStateDevice = tds;
      QString Message = TDS_Device->ConnectDeviceString(ui->adderLine->text());
-     if(Message == NULL)
+     if(Message == NULL){
          ui->labelTDS->setStyleSheet("background:green;");
-     else
-         ui->LogList->addItem(Message); //вывод в логи
+         connectCompliteButton = true;
+         }
+     else ui->LogList->addItem(Message); //вывод в логи
      ui->LogList->addItem(TDS_Device->IDN());
 
  }
 }
 
 void MainWindow::TraceButton(){
-ui->LogList->addItem(TDS_Device->Trace_initial("1", "2000", "CH1", "ASCII"));
-     QList<QString> y_list = TDS_Device->Trace();
-     int size_y = y_list.size();
-     if(size_y < 10)//ежели будет ошибка по таймауту, то она содержится с 0 QList'е
-     ui->LogList->addItem(y_list[0]);//выкидываю эту ошибку в логи
-     QVector<double> x(size_y), y;
-
-     double max = y_list.first().toDouble();
-     double min = y_list.first().toDouble();
-     foreach (const QString str, y_list) {
-         y << str.toDouble();
-         if(str.toDouble() > max)
-             max = str.toDouble();
-         if(str.toDouble() < min)
-             min = str.toDouble();
-     }
-
-     for( double i = 0; i < size_y; i++)
-         x[i] = i/10;
-
-     ui->widget->addGraph();
-     ui->widget->graph(0)->setData(x,y);
-     ui->widget->xAxis->setLabel("time");
-     ui->widget->yAxis->setLabel("B");
-     ui->widget->xAxis->setRange(0, 250);
-     ui->widget->yAxis->setRange(min, max);
-     ui->widget->replot();
-}
-
-void MainWindow::Replot_Image(){
-    if( mainStateDevice == tds){
-       // ui->widget->clearGraphs();
-        //ui->widget->replot();
-        //
+    if ( startTrace == false){
+        ui->LogList->addItem(TDS_Device->Trace_initial("1", "1000", "CH1", "ASCII"));
         QList<QString> y_list = TDS_Device->Trace();
         int size_y = y_list.size();
+        if(size_y < 10)//ежели будет ошибка по таймауту, то она содержится с 0 QList'е
+            ui->LogList->addItem(y_list[0]);//выкидываю эту ошибку в логи
         QVector<double> x(size_y), y;
 
         double max = y_list.first().toDouble();
@@ -137,11 +106,43 @@ void MainWindow::Replot_Image(){
 
         for( double i = 0; i < size_y; i++)
             x[i] = i/10;
-        ui->widget->yAxis->setRange(min, max);
+
+        ui->widget->addGraph();
         ui->widget->graph(0)->setData(x,y);
+        ui->widget->xAxis->setLabel("time");
+        ui->widget->yAxis->setLabel("B");
+        ui->widget->xAxis->setRange(0, 250);
+        ui->widget->yAxis->setRange(min, max);
         ui->widget->replot();
- }
+        startTrace = true;
+    }
+    else{
+        if( mainStateDevice == tds){
+            QList<QString> y_list = TDS_Device->Trace();
+            int size_y = y_list.size();
+            QVector<double> x(size_y), y;
+
+            double max = y_list.first().toDouble();
+            double min = y_list.first().toDouble();
+            foreach (const QString str, y_list) {
+                y << str.toDouble();
+                if(str.toDouble() > max)
+                    max = str.toDouble();
+                if(str.toDouble() < min)
+                    min = str.toDouble();
+            }
+
+            for( double i = 0; i < size_y; i++)
+                x[i] = i/10;
+            ui->widget->yAxis->setRange(min, max);
+            ui->widget->graph(0)->setData(x,y);
+            ui->widget->replot();
+        }
+
+    }
 }
+
+
 
 void MainWindow::ResetDevice(){
 
@@ -150,3 +151,4 @@ void MainWindow::ResetDevice(){
    discon_button();
 
 }
+
