@@ -76,6 +76,20 @@
               </item>
              </widget>
             </item>
+            <item row="0" column="3">
+             <widget class="QComboBox" name="DeviceBox">
+              <item>
+               <property name="text">
+                <string>TDS2024C</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FSL</string>
+               </property>
+              </item>
+             </widget>
+            </item>
             <item row="0" column="1">
              <spacer name="horizontalSpacer">
               <property name="orientation">
@@ -90,15 +104,35 @@
              </spacer>
             </item>
             <item row="0" column="2">
-             <widget class="QComboBox" name="DeviceBox">
+             <widget class="QComboBox" name="BoxChannel">
               <item>
                <property name="text">
-                <string>TDS2024C</string>
+                <string>CH1</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>FSL</string>
+                <string>CH2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>CH3</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>CH4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>MATH</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FFT</string>
                </property>
               </item>
              </widget>

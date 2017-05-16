@@ -74,7 +74,7 @@ void MainWindow::InitializeDevice(QString Divice){
  if("TDS2024C" == Divice){
      TDS_Device = new TDS2024C;
      mainStateDevice = tds;
-     QString Message = TDS_Device->ConnectDeviceString(ui->adderLine->text());
+     QString Message = TDS_Device->ConnectDevice(ui->DeviceBox_2->currentText(),ui->adderLine->text());
      if(Message == NULL){
          ui->labelTDS->setStyleSheet("background:green;");
          connectCompliteButton = true;
@@ -87,7 +87,7 @@ void MainWindow::InitializeDevice(QString Divice){
 
 void MainWindow::TraceButton(){
     if ( startTrace == false){
-        ui->LogList->addItem(TDS_Device->Trace_initial("1", "1000", "CH1", "ASCII"));
+        ui->LogList->addItem(TDS_Device->Trace_initial("1", "2500", ui->BoxChannel->currentText(), "ASCII"));
         QList<QString> y_list = TDS_Device->Trace();
         int size_y = y_list.size();
         if(size_y < 10)//ежели будет ошибка по таймауту, то она содержится с 0 QList'е
@@ -118,6 +118,7 @@ void MainWindow::TraceButton(){
     }
     else{
         if( mainStateDevice == tds){
+        ui->LogList->addItem(TDS_Device->Trace_initial("1", "2500", ui->BoxChannel->currentText(), "ASCII"));
             QList<QString> y_list = TDS_Device->Trace();
             int size_y = y_list.size();
             QVector<double> x(size_y), y;

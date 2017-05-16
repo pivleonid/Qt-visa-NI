@@ -90,7 +90,7 @@ QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
 }
 
 /*===========================================================================*/
-QString BaseDevice::ConnectDeviceString(QString Connect){
+QString BaseDevice::ConnectDevice(QString Connect){
     QString outBuffer;
     status = viOpenDefaultRM(&rm);
     if (status < VI_SUCCESS)
@@ -130,7 +130,6 @@ QString BaseDevice::WriteCommand(QString command){
     if (status < VI_SUCCESS)
         return( outBuffer = ErrorFunction(status));
     return("");
-
 }
 /*===========================================================================*/
 QString BaseDevice::ReadDevice( uint count){

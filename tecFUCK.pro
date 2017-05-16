@@ -11,7 +11,8 @@ SOURCES += main.cpp \
            fsl.cpp \
            tds2024c.cpp \
            C:/Qt/qcustomplot/qcustomplot.cpp \
-           mainwindow.cpp
+           mainwindow.cpp \
+    pr100.cpp
 INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
 
 LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
@@ -26,7 +27,8 @@ HEADERS += \
     fsl.h \
     tds2024c.h \
     C:/Qt/qcustomplot/qcustomplot.h \
-    mainwindow.h
+    mainwindow.h \
+    pr100.h
 
 
 
