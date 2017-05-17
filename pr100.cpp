@@ -1,6 +1,6 @@
 #include "pr100.h"
 #include <qdebug.h>
-#include <QtTest/qtest.h>
+#include <unistd.h>
 
 PR100::PR100() : BaseDevice(){}
 PR100::~PR100(){}
@@ -18,13 +18,16 @@ void PR100::initFirst(QString adder){
     WriteCommand("frequency 500 MHz");
     WriteCommand("frequency?");
     qDebug() << "Freq =" + QString(ReadDevice(50));
-    WriteCommand("route:path? \"HE-300 500 MHz .. 7 GHz\"");
-    qDebug() << "ANT =" + QString(ReadDevice(50));;
+   ///fprintf(PR100_ID,'route:path? "HE-300 500 MHz .. 7 GHz"');
+   ///     ANT = fscanf(PR100_ID);
+   ///     fprintf(PR100_ID,['route:select ' ANT(4:7)]);
 
-    //WriteCommand("route:path? \"HE-300 500 MHz .. 7 GHz\"");
-    //qDebug() << "ANT =" + QString(ReadDevice(50));
-    ///fprintf(PR100_ID,['route:select ' ANT(4:7)]);
-    ///
+    WriteCommand("route:path? \"HE-300 500 MHz .. 7 GHz\"");
+    QString ANT = ReadDevice(50);
+    qDebug() << "ANT = " + ANT;
+    ANT = ANT.mid(4,7); // выделяем с 4 по 7 символ
+    WriteCommand("route:select " + ANT);
+
     WriteCommand("band max");
     WriteCommand("band?");
     qDebug() << "band =" + QString(ReadDevice(50));
@@ -54,19 +57,19 @@ void PR100::Calibrate(bool ClearSet){
         //fprintf(PR100_ID,['frequency ' num2str(Frequency) ' MHz']);
         WriteCommand("disp:ifp:lev:auto");
         WriteCommand("sense:frequency:afc on");
-        QTest::qSleep(1000);
+        sleep(1); //1 сек; usleep(милисек)
         WriteCommand("frequency:span 1 MHz");
         WriteCommand("band 50 kHz");
-        QTest::qSleep(2000);wwwwwr
+        sleep(2);
         WriteCommand("frequency:span 100 kHz");
         WriteCommand("band 6 kHz");
-        QTest::qSleep(3000);
+        sleep(3);
         WriteCommand("frequency:span 10 kHz");
         WriteCommand("band 600 Hz");
-        QTest::qSleep(4000);
+        sleep(4);
         WriteCommand("frequency:span 1 kHz");
         WriteCommand("band 150 Hz");
-        QTest::qSleep(5000);
+        sleep(5);
         WriteCommand("sense:frequency:afc off");
         WriteCommand("frequency:span 1 MHz");
         WriteCommand("band 50 kHz");
@@ -89,7 +92,7 @@ void PR100::Calibrate(bool ClearSet){
 
 void PR100::setFreq(QString Freq){
     WriteCommand("frequency " + Freq + "MHz"); //fprintf(PR100_ID,['frequency ' num2str(Freq) ' MHz']);
-    QTest::qSleep(300); //0.3
+    usleep(300); //0.3
     WriteCommand("disp:ifp:lev:auto");
-    QTest::qSleep(300);
+    usleep(300);
 }
