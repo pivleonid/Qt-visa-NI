@@ -33,3 +33,18 @@ void LeCroy::DataMeasurement(){
 QString LeCroy::WaveFormFormat(QString blockFormat, QString dataType){
     return(WriteCommand("COMM_FORMAT " + blockFormat + "," + dataType + "BIN"));
 }
+
+
+QString LeCroy::WaveForm(QString Channel, QString block){
+    WriteCommand(Channel + ":WaveForm? " + block);
+    return (ReadDevice(50000));
+}
+
+QString LeCroy::Template(){
+    WriteCommand("TEMPLATE?");
+    return(ReadDevice(100));
+}
+
+QString LeCroy::Trace(QString Channel, QString logical_block, QString dataType){
+    WriteCommand(Channel + ":INSPECT? " + logical_block + "," + dataType);
+}
