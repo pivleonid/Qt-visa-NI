@@ -30,7 +30,8 @@ HEADERS += \
     C:/Qt/qcustomplot/qcustomplot.h \
     mainwindow.h \
     pr100.h \
-    lecroy.h
+    lecroy.h \
+    rto1024.h
 
 
 
