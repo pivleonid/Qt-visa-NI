@@ -1,0 +1,12 @@
+INPUT(
+./debug/main.o
+./debug/basedevice.o
+./debug/fsl.o
+./debug/tds2024c.o
+./debug/qcustomplot.o
+./debug/mainwindow.o
+./debug/pr100.o
+./debug/lecroy.o
+./debug/moc_qcustomplot.o
+./debug/moc_mainwindow.o
+);

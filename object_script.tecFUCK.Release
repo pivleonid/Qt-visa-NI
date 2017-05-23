@@ -1,0 +1,12 @@
+INPUT(
+./release/main.o
+./release/basedevice.o
+./release/fsl.o
+./release/tds2024c.o
+./release/qcustomplot.o
+./release/mainwindow.o
+./release/pr100.o
+./release/lecroy.o
+./release/moc_qcustomplot.o
+./release/moc_mainwindow.o
+);
