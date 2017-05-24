@@ -1,6 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <rto1024.h>
+
+#include <fstream>
+#include <complex>
+#include <vector>
+#include <fftw3.h>
+using namespace std;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,7 +22,27 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->buttonTrace, SIGNAL(clicked(bool)),this, SLOT(TraceButton()));
         ui->labelFSL->setStyleSheet("background:red;");
         ui->labelTDS->setStyleSheet("background:red;");
+///
 
+        vector<complex<double> > data(4);
+        data[0] = {1 , 0};
+        data[1] = {2 , 0};
+        data[2] = {3 , 0};
+        data[3] = {4 , 0};
+// создаем план для библиотеки fftw
+//(FFTW_FORWARD - прямое, FFTW_BACKWARD - обратное)
+   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data[0], FFTW_FORWARD, FFTW_ESTIMATE);
+
+   // преобразование Фурье
+   fftw_execute(plan);
+   fftw_destroy_plan(plan);
+
+   // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
+   ofstream out("spektr.txt");
+   for(size_t i=0; i<data.size(); ++i)
+   {
+      out<<data[i]<<endl;
+   }
 
 }
 //=======================================================
