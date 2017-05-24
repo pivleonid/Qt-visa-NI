@@ -24,14 +24,17 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->labelTDS->setStyleSheet("background:red;");
 ///
 
-        vector<complex<double> > data(4);
+        vector<complex<double> > data(5);
         data[0] = {1 , 0};
         data[1] = {2 , 0};
         data[2] = {3 , 0};
         data[3] = {4 , 0};
+        data[4] = {5 , 0};
+        vector<complex<double> > data_out1(5);
+        vector<complex<double> > data_out2(5);
 // создаем план для библиотеки fftw
 //(FFTW_FORWARD - прямое, FFTW_BACKWARD - обратное)
-   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data[0], FFTW_FORWARD, FFTW_ESTIMATE);
+   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
 
    // преобразование Фурье
    fftw_execute(plan);
@@ -41,9 +44,20 @@ MainWindow::MainWindow(QWidget *parent) :
    ofstream out("spektr.txt");
    for(size_t i=0; i<data.size(); ++i)
    {
-      out<<data[i]<<endl;
+      out<<data_out1[i]<<endl;
    }
+///обратное
+plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data_out1[0], (fftw_complex*) &data_out2[0], FFTW_BACKWARD, FFTW_ESTIMATE);
+   // преобразование Фурье
+   fftw_execute(plan);
+   fftw_destroy_plan(plan);
 
+   // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
+   ofstream out_1("spektr_out.txt");
+   for(size_t i=0; i<data_out2.size(); ++i)
+   {
+      out_1<<data[i]<<endl;
+   }
 }
 //=======================================================
 MainWindow::~MainWindow()
