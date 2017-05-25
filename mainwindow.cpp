@@ -4,7 +4,7 @@
 #include <fstream>
 #include <complex>
 #include <vector>
-#include <fftw3.h>
+#include "fftw3.h"
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,41 +23,55 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->labelFSL->setStyleSheet("background:red;");
         ui->labelTDS->setStyleSheet("background:red;");
 ///
+      vector<complex<double> > data(1000);
+    //complex<double> data[1000];
+    data[0] = { 1 , 0 };
+    data[1] = { 1 , 0 };
+    data[2] = { 1 , 0 };
+    data[3] = { 1 , 0 };
+    data[4] = { 1 , 0 };
+    //
+    data[100] = { 1 , 0 };
+    data[101] = { 1 , 0 };
+    data[102] = { 1 , 0 };
+    data[103] = { 1 , 0 };
+    data[104] = { 1 , 0 };
+    ///
+    ///
+    data[200] = { 1 , 0 };
+    data[201] = { 1 , 0 };
+    data[202] = { 1 , 0 };
+    data[203] = { 1 , 0 };
+    data[204] = { 1 , 0 };
+    ///
+    ///
+    data[300] = { 1 , 0 };
+    data[301] = { 1 , 0 };
+    data[302] = { 1 , 0 };
+    data[303] = { 1 , 0 };
+    data[304] = { 1 , 0 };
+    ///
+    data[400] = { 1 , 0 };
+    data[401] = { 1 , 0 };
+    data[402] = { 1 , 0 };
+    data[403] = { 1 , 0 };
+    data[404] = { 1 , 0 };
+    ///
+    complex<double>  data_out1[1000];
+    // создаем план для библиотеки fftw
+    //(FFTW_FORWARD - прямое, FFTW_BACKWARD - обратное)
+   // fftw_plan plan = fftw_plan_dft_2d(10, 10, (fftw_complex*)&data[0], (fftw_complex*)&data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
+fftw_plan plan = fftw_plan_dft_1d(100, (fftw_complex*)&data[0], (fftw_complex*)&data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
+//    // преобразование Фурье
+    fftw_execute(plan);
+    fftw_destroy_plan(plan);
 
-        vector<complex<double> > data(5);
-        data[0] = {1 , 0};
-        data[1] = {2 , 0};
-        data[2] = {3 , 0};
-        data[3] = {4 , 0};
-        data[4] = {5 , 0};
-        vector<complex<double> > data_out1(5);
-        vector<complex<double> > data_out2(5);
-// создаем план для библиотеки fftw
-//(FFTW_FORWARD - прямое, FFTW_BACKWARD - обратное)
-   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
-
-   // преобразование Фурье
-   fftw_execute(plan);
-   fftw_destroy_plan(plan);
-
-   // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
-   ofstream out("spektr.txt");
-   for(size_t i=0; i<data.size(); ++i)
-   {
-      out<<data_out1[i]<<endl;
-   }
-///обратное
-plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data_out1[0], (fftw_complex*) &data_out2[0], FFTW_BACKWARD, FFTW_ESTIMATE);
-   // преобразование Фурье
-   fftw_execute(plan);
-   fftw_destroy_plan(plan);
-
-   // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
-   ofstream out_1("spektr_out.txt");
-   for(size_t i=0; i<data_out2.size(); ++i)
-   {
-      out_1<<data[i]<<endl;
-   }
+//    // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
+    ofstream out("spektr.txt");
+       for(size_t i=0; i<1000; ++i)
+       {
+          out<<data_out1[i]<<endl;
+       }
 }
 //=======================================================
 MainWindow::~MainWindow()

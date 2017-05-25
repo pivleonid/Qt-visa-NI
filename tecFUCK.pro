@@ -9,16 +9,23 @@ SOURCES += main.cpp \
            tds2024c.cpp \
            C:/Qt/qcustomplot/qcustomplot.cpp \
            mainwindow.cpp \
-    pr100.cpp \
-    lecroy.cpp
-INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
-INCLUDEPATH += C:/Qt/lib/fftw/
-LIBS +=  C:/Qt/lib/fftw/libfftw3-3.a\
-         C:/Qt/lib/fftw/libfftw3f-3.a\
-         C:/Qt/lib/fftw/libfftw3l-3.a
+           pr100.cpp \
+           lecroy.cpp
 
-LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
+INCLUDEPATH += D:/projects/tecFUCK/fftw/
+LIBS += D:/projects/tecFUCK/fftw/libfftw3-3.lib\
+        D:/projects/tecFUCK/fftw/libfftw3f-3.lib\
+        D:/projects/tecFUCK/fftw/libfftw3l-3.lib\
+
+#INCLUDEPATH += C:/Qt/lib/fftw/
+#LIBS +=  C:/Qt/lib/fftw/libfftw3-3.a\
+#         C:/Qt/lib/fftw/libfftw3f-3.a\
+#         C:/Qt/lib/fftw/libfftw3l-3.a\
+
+INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
 INCLUDEPATH += "C:/Program Files/IVI Foundation/VISA/Win64/Include"
+LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
+
 INCLUDEPATH += "C:/Qt/qcustomplot"
 
 FORMS += \
