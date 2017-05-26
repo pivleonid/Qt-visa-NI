@@ -9,6 +9,7 @@ SOURCES += main.cpp \
            tds2024c.cpp \
            C:/Qt/qcustomplot/qcustomplot.cpp \
            mainwindow.cpp \
+<<<<<<< HEAD
     pr100.cpp \
     lecroy.cpp
 
@@ -17,6 +18,20 @@ LIBS +=  D:/projects/tecFUCK/fftw/libfftw3-3.a\
          D:/projects/tecFUCK/fftw/libfftw3f-3.a\
             D:/projects/tecFUCK/fftw/libfftw3l-3.a
 #LIBS += -lfftw_threads -lfftw3 #-D:/projects/tecFUCK/fftw/
+=======
+           pr100.cpp \
+           lecroy.cpp
+
+INCLUDEPATH += D:/projects/tecFUCK/fftw/
+LIBS += D:/projects/tecFUCK/fftw/libfftw3-3.lib\
+        D:/projects/tecFUCK/fftw/libfftw3f-3.lib\
+        D:/projects/tecFUCK/fftw/libfftw3l-3.lib\
+
+#INCLUDEPATH += C:/Qt/lib/fftw/
+#LIBS +=  C:/Qt/lib/fftw/libfftw3-3.a\
+#         C:/Qt/lib/fftw/libfftw3f-3.a\
+#         C:/Qt/lib/fftw/libfftw3l-3.a\
+>>>>>>> master
 
 INCLUDEPATH += ../../../../Program Files/IVI Foundation/VISA/Win64/Include/
 INCLUDEPATH += "C:/Program Files/IVI Foundation/VISA/Win64/Include"

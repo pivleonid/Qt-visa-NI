@@ -17,7 +17,11 @@ CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -std=gnu++11 -frtti -Wall -
 INCPATH       = -I. -Ifftw -I../../../../Program -IFiles/IVI -IFoundation/VISA/Win64/Include/ -I"C:/Program Files/IVI Foundation/VISA/Win64/Include" -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -Irelease -I. -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
+<<<<<<< HEAD
 LIBS        =        -lmingw32 -LC:/Qt/Qt5.8.0/5.8/mingw53_32/lib C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libqtmain.a -LC:/utils/my_sql/my_sql/lib -LC:/utils/postgresql/pgsql/lib -lshell32 C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Core.a D:/projects/tecFUCK/fftw/libfftw3-3.a D:/projects/tecFUCK/fftw/libfftw3f-3.a D:/projects/tecFUCK/fftw/libfftw3l-3.a "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib" C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5PrintSupport.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Widgets.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Gui.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Core.a 
+=======
+LIBS        =        -lmingw32 -LC:/Qt/Qt5.8.0/5.8/mingw53_32/lib C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libqtmain.a -LC:/utils/my_sql/my_sql/lib -LC:/utils/postgresql/pgsql/lib -lshell32 C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Core.a D:/projects/tecFUCK/fftw/libfftw3-3.lib D:/projects/tecFUCK/fftw/libfftw3f-3.lib D:/projects/tecFUCK/fftw/libfftw3l-3.lib "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib" C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5PrintSupport.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Widgets.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Gui.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Core.a 
+>>>>>>> master
 QMAKE         = C:/Qt/Qt5.8.0/5.8/mingw53_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
