@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QGraphicsScene>
+
 #include <QMainWindow>
 #include <QTimer>
 
@@ -21,6 +23,7 @@ public:
     ~MainWindow();
 
 private:
+    QGraphicsScene *scene;
     Ui::MainWindow *ui;
     FSL* FSL_Device;
     TDS2024C* TDS_Device;
@@ -35,6 +38,8 @@ private slots:
     void InitializeDevice(QString Divice);
     void ResetDevice();
     void TraceButton();
+
+
 };
 
 #endif // MAINWINDOW_H

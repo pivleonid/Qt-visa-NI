@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -53,6 +54,7 @@ public:
     QPushButton *connectButton;
     QPushButton *RST;
     QPushButton *DisconnectButton;
+    QGraphicsView *graphicsView;
     QGridLayout *gridLayout_5;
     QListWidget *LogList;
     QVBoxLayout *verticalLayout_2;
@@ -165,7 +167,7 @@ public:
         sizePolicy2.setHeightForWidth(RST->sizePolicy().hasHeightForWidth());
         RST->setSizePolicy(sizePolicy2);
 
-        gridLayout_4->addWidget(RST, 0, 1, 2, 1);
+        gridLayout_4->addWidget(RST, 0, 2, 2, 1);
 
         DisconnectButton = new QPushButton(centralwidget);
         DisconnectButton->setObjectName(QStringLiteral("DisconnectButton"));
@@ -174,6 +176,11 @@ public:
         DisconnectButton->setSizePolicy(sizePolicy1);
 
         gridLayout_4->addWidget(DisconnectButton, 1, 0, 1, 1);
+
+        graphicsView = new QGraphicsView(centralwidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+
+        gridLayout_4->addWidget(graphicsView, 0, 1, 1, 1);
 
 
         horizontalLayout->addLayout(gridLayout_4);

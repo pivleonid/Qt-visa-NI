@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QImage>
 #include <fstream>
 #include <complex>
 #include <vector>
@@ -23,41 +23,91 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->labelFSL->setStyleSheet("background:red;");
         ui->labelTDS->setStyleSheet("background:red;");
 ///
+            scene = new QGraphicsScene(this);
+            ui->graphicsView->setScene(scene);
 
-        vector<complex<double> > data(5);
+        vector<complex<double> > data(100);
         data[0] = {1 , 0};
-        data[1] = {2 , 0};
-        data[2] = {3 , 0};
-        data[3] = {4 , 0};
-        data[4] = {5 , 0};
-        vector<complex<double> > data_out1(5);
-        vector<complex<double> > data_out2(5);
+        data[1] = {1 , 0};
+        //
+        data[10] = {1 , 0};
+        data[11] = {1 , 0};
+
+        vector<complex<double> > data_out1(100);
+        vector<complex<double> > data_out2(100);
 // создаем план для библиотеки fftw
 //(FFTW_FORWARD - прямое, FFTW_BACKWARD - обратное)
-   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
+//   fftw_plan plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data[0], (fftw_complex*) &data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
+
+   fftw_plan plan=fftw_plan_dft_2d(10,10, (fftw_complex*) &data[0], (fftw_complex*) &data_out1[0], FFTW_FORWARD, FFTW_ESTIMATE);
 
    // преобразование Фурье
-   fftw_execute(plan);
-   fftw_destroy_plan(plan);
+   (void) fftw_execute( plan);
+
+   (void) fftw_destroy_plan( plan);
 
    // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
    ofstream out("spektr.txt");
-   for(size_t i=0; i<data.size(); ++i)
+
+
+   double maxV = -99999;
+   double minV = 99999;
+   double temp;
+   uchar *mas = new uchar[100];
+   QList<double> tempList;
+   for(size_t i=0; i<data.size(); i++)
    {
       out<<data_out1[i]<<endl;
+      //temp = (data_out1[i].real());
+      temp = sqrt(data_out1[i].real()*data_out1[i].real() + data_out1[i].imag()*data_out1[i].imag());
+      if (maxV<temp ) maxV = temp;
+      if (minV>temp ) minV = temp;
+      tempList.append(temp);
    }
-///обратное
-plan=fftw_plan_dft_1d(data.size(), (fftw_complex*) &data_out1[0], (fftw_complex*) &data_out2[0], FFTW_BACKWARD, FFTW_ESTIMATE);
-   // преобразование Фурье
-   fftw_execute(plan);
-   fftw_destroy_plan(plan);
+   for(size_t i=0; i<data.size(); i++)
+   {
+      double temp = tempList.at(i);
+      double ttt = (temp-minV)/(maxV-minV)*255.0;
+      mas[i]=ttt;
+   }
 
-   // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
+///обратное
+//   plan = fftw_plan_dft_1d(data.size(), (fftw_complex*) &data_out1[0], (fftw_complex*) &data_out2[0], FFTW_BACKWARD, FFTW_ESTIMATE);
+//   // преобразование Фурье
+//   fftw_execute(plan);
+//   fftw_destroy_plan(plan);
+
+  // выводим в файл результат преобразования Фурье (должна получиться Дельта-функция)
    ofstream out_1("spektr_out.txt");
-   for(size_t i=0; i<data_out2.size(); ++i)
+
+   for(size_t i=0; i<data_out2.size(); i++)
    {
       out_1<<data[i]<<endl;
    }
+   ///
+
+   ofstream out_2("fuck.txt");
+
+   for(size_t i=0; i<100; i++)
+   {
+      out_2<<mas[i]<<endl;
+   }
+
+    QImage img( 100, 100,  QImage::Format_Indexed8);
+//    int i =0;
+//    for (int y=0; y<100; y++)
+//        for (int x=0; x<100; x++)
+//        {
+//            img.setPixel(x,y,0);
+//            i++;
+//        }
+//    img.setPixel(50,50,200);
+
+    //qpixmap  в роли промежуточного буфера
+    QPixmap *pixmap = new QPixmap(QPixmap::fromImage(img));
+    scene->addPixmap(QPixmap::fromImage(img));
+    pixmap->save("filename.png", "PNG");
+//    img.save("filename.png", "PNG");
 }
 //=======================================================
 MainWindow::~MainWindow()

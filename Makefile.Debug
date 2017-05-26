@@ -14,10 +14,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -DQT_QML_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -pipe -fno-keep-inline-dllexport -g -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -fno-keep-inline-dllexport -g -std=gnu++11 -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I. -I../../../../Program -IFiles/IVI -IFoundation/VISA/Win64/Include/ -IC:/Qt/lib/fftw -I"C:/Program Files/IVI Foundation/VISA/Win64/Include" -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -Idebug -I. -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ 
+INCPATH       = -I. -Ifftw -I../../../../Program -IFiles/IVI -IFoundation/VISA/Win64/Include/ -I"C:/Program Files/IVI Foundation/VISA/Win64/Include" -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -Idebug -I. -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LC:/Qt/Qt5.8.0/5.8/mingw53_32/lib C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libqtmaind.a -LC:/utils/my_sql/my_sql/lib -LC:/utils/postgresql/pgsql/lib -lshell32 C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Cored.a C:/Qt/lib/fftw/libfftw3-3.a C:/Qt/lib/fftw/libfftw3f-3.a C:/Qt/lib/fftw/libfftw3l-3.a "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib" C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5PrintSupportd.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Widgetsd.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Guid.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Cored.a 
+LIBS        =        -lmingw32 -LC:/Qt/Qt5.8.0/5.8/mingw53_32/lib C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libqtmaind.a -LC:/utils/my_sql/my_sql/lib -LC:/utils/postgresql/pgsql/lib -lshell32 C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Cored.a D:/projects/tecFUCK/fftw/libfftw3-3.a D:/projects/tecFUCK/fftw/libfftw3f-3.a D:/projects/tecFUCK/fftw/libfftw3l-3.a "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib" C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5PrintSupportd.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Widgetsd.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Guid.a C:/Qt/Qt5.8.0/5.8/mingw53_32/lib/libQt5Cored.a 
 QMAKE         = C:/Qt/Qt5.8.0/5.8/mingw53_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
@@ -621,10 +621,10 @@ debug/moc_qcustomplot.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qglobal.h
 		C:/Qt/qcustomplot/qcustomplot.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/bin/moc.exe
-	'C:\Qt\Qt5.8.0\5.8\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ -ID:/projects/tecFUCK -ID:/../../Program -ID:/projects/tecFUCK/Files/IVI -ID:/projects/tecFUCK/Foundation/VISA/Win64/Include -IC:/Qt/lib/fftw -I'C:/Program Files/IVI Foundation/VISA/Win64/Include' -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward C:/Qt/qcustomplot/qcustomplot.h -o debug/moc_qcustomplot.cpp
+	'C:\Qt\Qt5.8.0\5.8\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ -ID:/projects/tecFUCK -ID:/projects/tecFUCK/fftw -ID:/../../Program -ID:/projects/tecFUCK/Files/IVI -ID:/projects/tecFUCK/Foundation/VISA/Win64/Include -I'C:/Program Files/IVI Foundation/VISA/Win64/Include' -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward C:/Qt/qcustomplot/qcustomplot.h -o debug/moc_qcustomplot.cpp
 
-debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
+debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGraphicsScene \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtguiglobal.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qglobal.h \
@@ -651,13 +651,10 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWi
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qversiontagging.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtgui-config.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qwidget.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qnamespace.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs_win.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstring.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qchar.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qbytearray.h \
@@ -679,26 +676,27 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWi
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject_impl.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qmargins.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpaintdevice.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qrect.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsize.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qpoint.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qrect.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsize.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvector.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qcolor.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qrgb.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qrgba64.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qbrush.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvector.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qmatrix.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpolygon.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qregion.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs_win.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qdatastream.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qiodevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qline.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtransform.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpainterpath.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qimage.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpaintdevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpixelformat.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpixmap.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer.h \
@@ -706,6 +704,11 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWi
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qhash.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpalette.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontinfo.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qsizepolicy.h \
@@ -741,7 +744,7 @@ debug/moc_mainwindow.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWi
 		mainwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/bin/moc.exe
-	'C:\Qt\Qt5.8.0\5.8\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ -ID:/projects/tecFUCK -ID:/../../Program -ID:/projects/tecFUCK/Files/IVI -ID:/projects/tecFUCK/Foundation/VISA/Win64/Include -IC:/Qt/lib/fftw -I'C:/Program Files/IVI Foundation/VISA/Win64/Include' -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindow.h -o debug/moc_mainwindow.cpp
+	'C:\Qt\Qt5.8.0\5.8\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++ -ID:/projects/tecFUCK -ID:/projects/tecFUCK/fftw -ID:/../../Program -ID:/projects/tecFUCK/Files/IVI -ID:/projects/tecFUCK/Foundation/VISA/Win64/Include -I'C:/Program Files/IVI Foundation/VISA/Win64/Include' -IC:/Qt/qcustomplot -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.8.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindow.h -o debug/moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1363,6 +1366,9 @@ debug/main.o: main.cpp C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QApplicati
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qinputmethod.h \
 		mainwindow.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGraphicsScene \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsscene.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtabwidget.h \
@@ -2098,8 +2104,8 @@ debug/qcustomplot.o: C:/Qt/qcustomplot/qcustomplot.cpp C:/Qt/qcustomplot/qcustom
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/qcustomplot.o C:/Qt/qcustomplot/qcustomplot.cpp
 
 debug/mainwindow.o: mainwindow.cpp mainwindow.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGraphicsScene \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtguiglobal.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qglobal.h \
@@ -2126,13 +2132,10 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qversiontagging.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtgui-config.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qwidget.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qnamespace.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs_win.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qstring.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qchar.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qbytearray.h \
@@ -2154,26 +2157,27 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qobject_impl.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qmargins.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpaintdevice.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qrect.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsize.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qpoint.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qrect.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsize.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvector.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qcolor.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qrgb.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qrgba64.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qbrush.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qvector.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qmatrix.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpolygon.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qregion.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qwindowdefs_win.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qdatastream.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qiodevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qline.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtransform.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpainterpath.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qimage.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpaintdevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpixelformat.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpixmap.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer.h \
@@ -2181,6 +2185,11 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qhash.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMainWindow \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmainwindow.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpalette.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontmetrics.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qfontinfo.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qsizepolicy.h \
@@ -2241,6 +2250,12 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qrubberband.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qframe.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGraphicsView \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsview.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpainter.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qscrollarea.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QGridLayout \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgridlayout.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlayout.h \
@@ -2250,7 +2265,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QHeaderView \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qheaderview.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
@@ -2258,8 +2272,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlineedit.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextcursor.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextformat.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QListWidget \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlistwidget.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlistview.h \
@@ -2280,7 +2292,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qpointer.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QSharedPointer \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QPainter \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QPaintEvent \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QMouseEvent \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QWheelEvent \
@@ -2541,12 +2552,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicslinearlayout.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsproxywidget.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicswidget.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicssceneevent.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicstransform.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QVector3D \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgraphicsview.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qscrollarea.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qgroupbox.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qinputdialog.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qitemdelegate.h \
@@ -2613,7 +2621,7 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport/qprintpreviewdialog.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport/qprintpreviewwidget.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtPrintSupport/qtprintsupportversion.h \
-		rto1024.h
+		fftw/fftw3.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/mainwindow.o mainwindow.cpp
 
 debug/pr100.o: pr100.cpp pr100.h \
