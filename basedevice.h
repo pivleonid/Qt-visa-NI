@@ -15,6 +15,7 @@
 #include <memory.h>
 #include <QString>
 #include <QMap>
+#include <QByteArray>
 
 
 class BaseDevice
@@ -89,7 +90,7 @@ protected:
 
     QString WriteCommand(QString command);
 
-/*=============================================================================================================*/
+/*=============================================================================*/
 /*!  \brief
         Универсальная функция для чтения из прибора. Использует viRead.
 \param  [in] count - Количество символов для чтения
@@ -97,7 +98,26 @@ protected:
 */
 
     QString ReadDevice(  uint count );
-
+/*=============================================================================*/
+QByteArray ReadDevice_Array( uint count){
+    char* buffer = new char[count]{};
+    QByteArray buffer_array;
+    if( flag_connect == false){
+        delete[] buffer;
+        buffer_array[0] = -1;
+        return buffer_array;//(" Не выполнена функция ConnectDevice");
+    }
+    status = viRead(vi, (ViBuf) buffer, count, &retCnt);
+    if (status < VI_SUCCESS){
+        delete[] buffer;
+        buffer_array[0] = -2;
+        return buffer_array;
+    }
+    QByteArray buffer_array_data(buffer);
+    delete[] buffer;
+    return buffer_array_data;
+}
+/*=============================================================================*/
 private:
 
 

@@ -146,7 +146,7 @@ QString BaseDevice::ReadDevice( uint count){
     }
     outBuffer = QString(QByteArray(buffer));
     delete[] buffer;
-    return(outBuffer);
+    return outBuffer;
 }
 /*===========================================================================*/
 QString BaseDevice::IDN(){

@@ -24,8 +24,7 @@ LIBS += "C:/Program Files (x86)/IVI Foundation/VISA/WinNT/lib/msc/visa32.lib"
 
 INCLUDEPATH += "C:/Qt/qcustomplot"
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 HEADERS += \
     basedevice.h \
