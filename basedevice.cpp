@@ -190,7 +190,30 @@ QString BaseDevice::ErrorFunction( ViStatus status){
     }
     return outbuffer;
 }
-
-
+/*===========================================================================*/
+QByteArray BaseDevice::ReadDevice_Array( uint count){
+   // char* buffer = new char[count]{};
+    ViByte *buffer = new ViByte[count];
+    QByteArray buffer_array;
+    if( flag_connect == false){
+       // delete[] buffer;
+        buffer_array[0] = -1;
+        return buffer_array;//(" Не выполнена функция ConnectDevice");
+    }
+    status = viRead(vi, buffer, count, &retCnt);
+    if (status < VI_SUCCESS){
+        //delete[] buffer;
+        buffer_array[0] = -2;
+        return buffer_array;
+    }
+    QByteArray buffer_array_data;//(buffer);
+    for (int i =0; i<retCnt; i++)
+    {
+    buffer_array_data.append( buffer[i] );
+    }
+    delete[] buffer;
+    int i = buffer_array_data.count();
+    return buffer_array_data;
+}
 
 

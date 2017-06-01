@@ -44,17 +44,27 @@ QString LeCroy::WaveForm(QString Channel, QString block, qint32 number){
     WriteCommand("MSIZ " + QString::number(number) );
     WriteCommand(Channel + ":WF? " + block);
     QByteArray waveDat = ReadDevice_Array(number);
+
     //
     WriteCommand("C1:INSPECT? Vertical_gain");
     QString VGain = ReadDevice(50);
-     VGain =  VGain.mid(30,45); // выделяем с 4 по 7 символ
+    VGain =  VGain.mid(30,15);
+    double Vgain = VGain.toDouble();
     //
     WriteCommand("C1:INSPECT? Vertical_offset");
     QString VOffset = ReadDevice(50);
-    VOffset =  VOffset.mid(30,45);
+    VOffset =  VOffset.mid(30,15);
+    double Voffset = VOffset.toDouble();
     // далее из строк получить данные типа double
     // wavedat[i] = wavedat[i] * VGain - VOffset;
+    double waveDatDouble[number];
 
+
+    for(int i = 22,  j = 0; i < number; i++, j++ ){
+        waveDatDouble[j] = (double)(waveDat[i] * Vgain - Voffset);
+        out << waveDatDouble[j] << endl;
+    }
+int eee=9;
     return "Hello kitty" ;
 }
 
