@@ -2129,7 +2129,9 @@ debug/lecroy.o: lecroy.cpp lecroy.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcontiguouscache.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qsharedpointer_impl.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QByteArray
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QByteArray \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfile.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfiledevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/lecroy.o lecroy.cpp
 
 debug/moc_qcustomplot.o: debug/moc_qcustomplot.cpp 

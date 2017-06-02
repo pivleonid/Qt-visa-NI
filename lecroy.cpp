@@ -1,5 +1,6 @@
 #include "lecroy.h"
 #include "qdebug.h"
+#include <qfile.h>
 
 LeCroy::LeCroy():BaseDevice()
 {
@@ -29,10 +30,7 @@ QString LeCroy::initLectoy(QString adder){
         return(IDN());
 }
 
-void LeCroy::DataMeasurement(){
 
-
-}
 
 QString LeCroy::WaveFormFormat(QString blockFormat, QString dataType){
     return(WriteCommand("COMM_FORMAT " + blockFormat + "," + dataType + ",BIN"));
@@ -40,32 +38,28 @@ QString LeCroy::WaveFormFormat(QString blockFormat, QString dataType){
 }
 
 
-QString LeCroy::WaveForm(QString Channel, QString block, qint32 number){
+void LeCroy::WaveForm( QString Channel, QString block, uint number, QVector<double> *waveVecDouble, QString TimeDel ){
+    WriteCommand("TIME_DIV " + TimeDel );
     WriteCommand("MSIZ " + QString::number(number) );
     WriteCommand(Channel + ":WF? " + block);
-    QByteArray waveDat = ReadDevice_Array(number);
-
-    //
+    QByteArray waveDat = ReadDevice_Array(number + 22);
     WriteCommand("C1:INSPECT? Vertical_gain");
     QString VGain = ReadDevice(50);
     VGain =  VGain.mid(30,15);
     double Vgain = VGain.toDouble();
-    //
     WriteCommand("C1:INSPECT? Vertical_offset");
     QString VOffset = ReadDevice(50);
     VOffset =  VOffset.mid(30,15);
     double Voffset = VOffset.toDouble();
-    // далее из строк получить данные типа double
-    // wavedat[i] = wavedat[i] * VGain - VOffset;
-    double waveDatDouble[number];
-
-
-    for(int i = 22,  j = 0; i < number; i++, j++ ){
-        waveDatDouble[j] = (double)(waveDat[i] * Vgain - Voffset);
-        out << waveDatDouble[j] << endl;
+    //  QFile file("wave.txt");
+    //  file.open(QIODevice::WriteOnly | QIODevice::Text);
+    //  QTextStream writeStream(&file);
+    for(uint i = 22,  j = 0; i < number+22; i++, j++ ){
+        waveVecDouble->append( waveDat[i] * Vgain - Voffset );
+        //   writeStream << &waveVecDouble[j] << endl;
     }
-int eee=9;
-    return "Hello kitty" ;
+    //   file.close();
+
 }
 
 QString LeCroy::Template(){

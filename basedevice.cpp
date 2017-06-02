@@ -98,11 +98,12 @@ QString BaseDevice::ConnectDevice(QString Connect){
     char* adr = new char [100];
     strcpy(adr, Connect.toStdString().data());
     status = viOpen(rm, adr, VI_NULL, VI_NULL, &vi);
+    outBuffer = adr;
     delete[] adr;
     if (status < VI_SUCCESS)
         return(outBuffer = ErrorFunction(status));
     flag_connect = true;
-    return ("");
+    return (outBuffer);
 }
 /*===========================================================================*/
 QString BaseDevice::DisconnectDevice(){
@@ -133,6 +134,7 @@ QString BaseDevice::WriteCommand(QString command){
 }
 /*===========================================================================*/
 QString BaseDevice::ReadDevice( uint count){
+    //ViByte *buffer = new ViByte[count];
     char* buffer = new char[count]{};
     if( flag_connect == false){
         delete[] buffer;
@@ -196,7 +198,7 @@ QByteArray BaseDevice::ReadDevice_Array( uint count){
     ViByte *buffer = new ViByte[count];
     QByteArray buffer_array;
     if( flag_connect == false){
-       // delete[] buffer;
+        delete[] buffer;
         buffer_array[0] = -1;
         return buffer_array;//(" Не выполнена функция ConnectDevice");
     }
