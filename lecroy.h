@@ -2,7 +2,8 @@
 #define LECROY_H
 
 #include "basedevice.h"
-
+#include <complex>
+#include <QVector>
 class LeCroy : public BaseDevice
 {
 public:
@@ -36,7 +37,7 @@ The time descriptor (TIME); The data block (DAT1); An optional second data block
 \param [out] *waveVecDouble - Уровень сигнала в Вольтах
 \param [in] TimeDel - Время на деление. По умолчанию 5 микросек/деление. [KS,S,MS,US,NS]
 */
-    void WaveForm(QString Channel, QString block, uint number, QVector<double> *waveVecDouble, QString TimeDel = "5.0E-6");
+    void WaveForm(QString Channel, QString block, uint number, QString TimeDel = "10.0E-3");
 /*===========================================*/
 /*!  \brief
 Строка с настройками, которую можно использовать в параметрах снятия трейса

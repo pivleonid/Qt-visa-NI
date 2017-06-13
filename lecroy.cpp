@@ -38,11 +38,11 @@ QString LeCroy::WaveFormFormat(QString blockFormat, QString dataType){
 }
 
 
-void LeCroy::WaveForm( QString Channel, QString block, uint number, QVector<double> *waveVecDouble, QString TimeDel ){
+void LeCroy::WaveForm( QString Channel, QString block, uint number,  QString TimeDel ){
     WriteCommand("TIME_DIV " + TimeDel );
     WriteCommand("MSIZ " + QString::number(number) );
     WriteCommand(Channel + ":WF? " + block);
-    QByteArray waveDat = ReadDevice_Array(number + 22);
+    QByteArray waveDat = ReadDevice_Array(number + 22);/*
     WriteCommand("C1:INSPECT? Vertical_gain");
     QString VGain = ReadDevice(50);
     VGain =  VGain.mid(30,15);
@@ -51,15 +51,11 @@ void LeCroy::WaveForm( QString Channel, QString block, uint number, QVector<doub
     QString VOffset = ReadDevice(50);
     VOffset =  VOffset.mid(30,15);
     double Voffset = VOffset.toDouble();
-    //  QFile file("wave.txt");
-    //  file.open(QIODevice::WriteOnly | QIODevice::Text);
-    //  QTextStream writeStream(&file);
-    for(uint i = 22,  j = 0; i < number+22; i++, j++ ){
-        waveVecDouble->append( waveDat[i] * Vgain - Voffset );
-        //   writeStream << &waveVecDouble[j] << endl;
-    }
-    //   file.close();
-
+   for(uint i = 22, j = 0; i < number+22; i++, j++ ){
+       float count = waveDat[i] * Vgain - Voffset;
+       waveVecDouble[j] = count;
+   }*/
+    int i = 0;
 }
 
 QString LeCroy::Template(){

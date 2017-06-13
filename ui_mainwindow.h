@@ -28,7 +28,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "qcustomplot.h"
+//#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -37,7 +37,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_7;
-    QCustomPlot *widget;
+//    QCustomPlot *widget;
     QGridLayout *gridLayout_6;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
