@@ -7,38 +7,43 @@
 #include <fftw3.h>
 using namespace  std;
 void func(QVector<complex<double>>& Vec1, QVector<complex<double>>& Vec2, QVector<complex<double> > &Vec3);
-void initialMatrix( );
+void initialMatrix( int x, int x1, int y, int y1, QVector<complex<double>>& matrixCalibate );
+void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, int &indx, int &indy);
 MainWindow::MainWindow()
 {
 
 
-//    LeCroy le;
-//    qDebug() << le.ConnectDevice("TCPIP0::192.168.70.36::inst0::INSTR");
-//    qDebug() << le.WaveFormFormat("OFF","BYTE");
-//   // QVector<float> wave(200000000);
+    int x = 100;
+    int y = 100;
+    int x1 = 10;
+    int y1 = 10;
 
-//    le.WaveForm("C1","DAT1",10000000);
-//    le.WaveForm("C1","DAT1",250000000);
-//  //  le.WaveForm("C1","DAT1",100000000, &wave);
-//   // le.WaveForm("C1","DAT1",100000000, &wave);
-//   // le.WaveForm("C1","DAT1",100000000, &wave);
-//   // le.WaveForm("C1","DAT1",100000000, &wave);
-//    qDebug() << le.DisconnectDevice();
 
-//    QVector<complex<double>>  Vec1(10000000);
-//    Vec1[0] = {0, 1};
-//    Vec1[1] = {1, 1};
+    QVector<complex<double>> matrixCalibate;
+    initialMatrix( x, x1 , y, y1 , matrixCalibate);
 
-//    QVector<complex<double>>  Vec2(10000000);
-//    Vec2[0] = {0, 1};
-//    Vec2[1] = {1, 1};
-//    QVector<complex<double>>  Vec3(10000000);
-////
-//    func(Vec1, Vec2, Vec3);
-    //
-   // int* matrixCalibate;
-    initialMatrix( );
-    //delete [10000] matrixCalibate;
+    QVector<complex<double>> matrixCalibate1;
+    matrixCalibate1.resize(x * y);
+    for (int a = 0; a < y; a++)
+        for(int b = 0; b < x; b++){
+            int n = a * x + b;
+            matrixCalibate1[n] = 0;
+        }
+    int nnn = 50;
+    for (int a = 0; a < y1; a++)
+        for(int b = 0; b < x ; b++){
+            int n = ( nnn + a ) * x + b;
+            matrixCalibate1[n] = 1;
+        }
+    for (int a = 0; a < y; a++)
+        for(int b = 0; b<x1 ; b++){
+            int n = a * x + b + nnn;
+            matrixCalibate1[n] = 1;
+        }
+
+    int indx;
+    int indy;
+    AndreyOperation( x,y, matrixCalibate1, matrixCalibate, indx, indy);
 
     int u = 1;
 }
@@ -83,27 +88,62 @@ void func(QVector<complex<double> >& Vec1, QVector<complex<double>>& Vec2, QVect
 }
 
 
-void initialMatrix( ){
-  const int x = 10;
-  const int y = 10;
-  const  int x1 = 4;
-  const int y1 = 4;
-  complex<double> matrixCalibate[x][y];
-  complex<double>* ptr;
-  complex<double> matrixCalibateOut[x][y];
-  complex<double>* ptr2;
-  for(int i = 0; i < x ; i++){
-      for(int j = 0; j < y; j++)
-          matrixCalibate[i][j] = 1;
+void initialMatrix( int x, int x1, int y, int y1, QVector<complex<double>>& matrixCalibate ){
+
+    matrixCalibate.resize(x * y);
+    for (int a = 0; a < y; a++)
+        for(int b = 0; b < x; b++){
+            int n = a * x + b;
+            matrixCalibate[n] = 1;
+        }
+    for (int a = 0; a < y - y1; a++)
+        for(int b = 0; b < x - x1; b++){
+            int n = a * x + b;
+            matrixCalibate[n] = 0;
+        }
+  fftw_plan plan = fftw_plan_dft_2d(x, y, (fftw_complex*)&matrixCalibate[0], (fftw_complex*)&matrixCalibate[0],FFTW_FORWARD, FFTW_ESTIMATE);
+  fftw_execute(plan);
+  //смена знака:
+  for(uint i = 0; i < x*y; i++){
+      double re = matrixCalibate[i].real();
+      double im = (-1)*matrixCalibate[i].imag();
+      matrixCalibate[i] = { re, im };
   }
 
-  for(int i = 0; i < (x - x1) ; i++){
-      for(int j = 0; j < (y - y1); j++)
-          matrixCalibate[i][j] = 0;
-  }
-  ptr = *matrixCalibate;
-  ptr2 = *matrixCalibateOut;
-  fftw_plan plan = fftw_plan_dft_2d(x, y, (fftw_complex*)ptr, (fftw_complex*)ptr2,FFTW_FORWARD, FFTW_ESTIMATE);
-  fftw_execute(plan);
-  int c;
+
+  fftw_destroy_plan(plan);
+
+}
+
+// x, y  размерность "матрицы"
+void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, int &indx, int &indy){
+
+    fftw_plan plan = fftw_plan_dft_2d(x, y, (fftw_complex*)&imageMatrix[0], (fftw_complex*)&imageMatrix[0],FFTW_FORWARD, FFTW_ESTIMATE);
+    fftw_execute(plan);
+    for(uint i = 0; i < x*y; i++)
+    {
+        imageMatrix[i] = imageMatrix[i] * matrixCalibate[i];
+    }
+
+        plan = fftw_plan_dft_2d(x, y, (fftw_complex*)&imageMatrix[0], (fftw_complex*)&imageMatrix[0],FFTW_BACKWARD, FFTW_ESTIMATE);
+        fftw_execute(plan);
+        fftw_destroy_plan(plan);
+
+        double matrixMax;
+        double temp = 0;
+        indx = -1;
+        indy = -1;
+        //операция взятия по модулю
+        for (int a = 0; a < y; a++)
+            for(int b = 0; b < x; b++){
+                int n = a * x + b;
+                double re = imageMatrix[n].real();
+                double im = imageMatrix[n].imag();
+                matrixMax = sqrt(re*re + im*im);
+                if(matrixMax > temp){
+                    indx = b;
+                    indy = a;
+                    temp = matrixMax;
+                }
+            }
 }
