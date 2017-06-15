@@ -69,6 +69,12 @@ public:
     QString OPC();
     QString BUSY();
 
+    //для PR100
+    ViSession GetSesion(){
+        return(vi);
+    }
+
+
 protected:
 
     bool flag_connect;  ///<    Флаг проверки подключения прибора
@@ -106,6 +112,8 @@ protected:
                    - (-2) == Ошибка не определена
 */
 QByteArray ReadDevice_Array( uint count);
+
+
 
 /*=============================================================================*/
 private:

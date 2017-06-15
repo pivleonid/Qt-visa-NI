@@ -5,47 +5,23 @@
 #include <complex>
 #include <vector>
 #include <fftw3.h>
+
+#include "pr100.h"
+//=======================================================
 using namespace  std;
 void func(QVector<complex<double>>& Vec1, QVector<complex<double>>& Vec2, QVector<complex<double> > &Vec3);
 void initialMatrix( int x, int x1, int y, int y1, QVector<complex<double>>& matrixCalibate );
 void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, int &indx, int &indy);
+//=======================================================
 MainWindow::MainWindow()
 {
+    PR100 Pr;
+
+    Pr.init("TCPIP0::192.168.70.42::5555::SOCKET");
+    Pr.calibrate(true, 500);
+    Pr.setFreq(100);
 
 
-    int x = 100;
-    int y = 100;
-    int x1 = 10;
-    int y1 = 10;
-
-
-    QVector<complex<double>> matrixCalibate;
-    initialMatrix( x, x1 , y, y1 , matrixCalibate);
-
-    QVector<complex<double>> matrixCalibate1;
-    matrixCalibate1.resize(x * y);
-    for (int a = 0; a < y; a++)
-        for(int b = 0; b < x; b++){
-            int n = a * x + b;
-            matrixCalibate1[n] = 0;
-        }
-    int nnn = 50;
-    for (int a = 0; a < y1; a++)
-        for(int b = 0; b < x ; b++){
-            int n = ( nnn + a ) * x + b;
-            matrixCalibate1[n] = 1;
-        }
-    for (int a = 0; a < y; a++)
-        for(int b = 0; b<x1 ; b++){
-            int n = a * x + b + nnn;
-            matrixCalibate1[n] = 1;
-        }
-
-    int indx;
-    int indy;
-    AndreyOperation( x,y, matrixCalibate1, matrixCalibate, indx, indy);
-
-    int u = 1;
 }
 //=======================================================
 MainWindow::~MainWindow()

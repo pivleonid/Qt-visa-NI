@@ -136,6 +136,7 @@ QString BaseDevice::WriteCommand(QString command){
 QString BaseDevice::ReadDevice( uint count){
     //ViByte *buffer = new ViByte[count];
     char* buffer = new char[count]{};
+    char buf[256] = {0};
     if( flag_connect == false){
         delete[] buffer;
         return(" Не выполнена функция ConnectDevice");
