@@ -73,9 +73,17 @@ BaseDevice::~BaseDevice(){
 }
 //USB0::0x0699::0x03A6::C011549::INSTR
 /*===========================================================================*/
-QString BaseDevice::ConnectDevice(QString typeConnect, QString typeAdder){
+QString BaseDevice::ConnectDevice( typeConnect tC , QString typeAdder){
     QString outBuffer;
-    QString adder = typeConnect + "::" + typeAdder + "::INSTR";
+    QString connect;
+    if(tC == USB)
+      connect = "USB";
+    if(tC == TCPIP)
+      connect = "TCPIP";
+    if(tC == GPIB)
+      connect = "GPIB";
+
+    QString adder = connect + "::" + typeAdder + "::INSTR";
     status = viOpenDefaultRM(&rm);
     if (status < VI_SUCCESS)
         return( outBuffer = ErrorFunction(status));
@@ -122,6 +130,7 @@ QString BaseDevice::WriteCommand(QString command){
 
     if( flag_connect == false)
         return(" Не выполнена функция ConnectDevice");
+    command = command+ "\n";
     QString outBuffer;
     int size = command.size();
     char* cmd = new char [100];

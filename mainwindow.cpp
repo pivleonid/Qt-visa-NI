@@ -6,7 +6,8 @@
 #include <vector>
 #include <fftw3.h>
 
-#include "pr100.h"
+//#include "pr100.h"
+#include "lecroy.h"
 //=======================================================
 using namespace  std;
 void func(QVector<complex<double>>& Vec1, QVector<complex<double>>& Vec2, QVector<complex<double> > &Vec3);
@@ -15,11 +16,17 @@ void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVect
 //=======================================================
 MainWindow::MainWindow()
 {
-    PR100 Pr;
+    //PR100 Pr;
 
-    Pr.init("TCPIP0::192.168.70.42::5555::SOCKET");
-    Pr.calibrate(true, 500);
-    Pr.setFreq(100);
+  //  Pr.init("TCPIP0::192.168.70.42::5555::SOCKET");
+   // Pr.calibrate(true, 500);
+    //Pr.setFreq(100);
+    LeCroy Le;
+    LeCroy::typeConnect tp = LeCroy::TCPIP;
+    Le.ConnectDevice(LeCroy::TCPIP,"192.168.70.37");
+    qDebug() << Le.IDN();
+    Le.initLectoy("TCPIP0::192.168.70.37::inst0::INSTR");
+
 
 
 }
