@@ -1,0 +1,4 @@
+#ifndef VISANAMESPACE_H
+#define VISANAMESPACE_H
+
+#endif // VISANAMESPACE_H

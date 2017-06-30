@@ -34,7 +34,8 @@ HEADERS += \
     mainwindow.h \
     pr100.h \
     lecroy.h \
-    rto1024.h
+    rto1024.h \
+    visanamespace.h
 
 
 

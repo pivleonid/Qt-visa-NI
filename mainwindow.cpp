@@ -6,29 +6,70 @@
 #include <vector>
 #include <fftw3.h>
 
-//#include "pr100.h"
+#include "pr100.h"
 #include "lecroy.h"
 //=======================================================
 using namespace  std;
 void func(QVector<complex<double>>& Vec1, QVector<complex<double>>& Vec2, QVector<complex<double> > &Vec3);
 void initialMatrix( int x, int x1, int y, int y1, QVector<complex<double>>& matrixCalibate );
-void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, int &indx, int &indy);
+void AndreyOperation( uint x, uint y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, uint &indx, uint &indy);
 //=======================================================
 MainWindow::MainWindow()
 {
-    //PR100 Pr;
-
-  //  Pr.init("TCPIP0::192.168.70.42::5555::SOCKET");
-   // Pr.calibrate(true, 500);
-    //Pr.setFreq(100);
-    LeCroy Le;
-    LeCroy::typeConnect tp = LeCroy::TCPIP;
-    Le.ConnectDevice(LeCroy::TCPIP,"192.168.70.37");
-    qDebug() << Le.IDN();
-    Le.initLectoy("TCPIP0::192.168.70.37::inst0::INSTR");
 
 
 
+//  uint x = 10 ;
+//  uint y = 10;
+//  uint x1 = 5 ;
+//  uint y1 = 5;
+
+
+//  QVector<complex<double>> matrixCalibate;
+//  initialMatrix( x, x1 , y, y1 , matrixCalibate);
+
+//  QVector<complex<double>> matrixCalibate1;
+//  matrixCalibate1.resize(x * y);
+//  for (uint a = 0; a < y; a++)
+//      for(uint b = 0; b < x; b++){
+//          uint n = a * x + b;
+//          matrixCalibate1[n] = 0;
+//      }
+//  uint nnn = 2;
+//  for (uint a = 0; a < y1; a++)
+//      for(uint b = 0; b < x ; b++){
+//          uint n = ( nnn + a ) * x + b;
+//          matrixCalibate1[n] = 1;
+//      }
+//  nnn = 2;
+//  for ( uint a = 0; a < y; a++ )
+//      for(uint b = 0; b < x1 ; b++){
+//          uint n = a * x + b + nnn;
+//          matrixCalibate1[n] = 1;
+//      }
+
+//  uint indx;
+//  uint indy;
+//  AndreyOperation( x,y, matrixCalibate1, matrixCalibate, indx, indy);
+
+//  LeCroy le;
+//  qDebug() << le.ConnectDevice("TCPIP0::192.168.70.34::inst0::INSTR");
+//  le.WaveForm("C1", "DAT1", 250000000  );
+//      int t=0;
+
+
+//  QVector<double> a1(100);
+//  QVector<complex<double>> a2(100);
+//  for(uint i = 0; i < 100; i++)
+//    a1[i] = 1;
+//  fftw_plan plan = fftw_plan_dft_r2c_1d(100,  (double*)&a1[0], (fftw_complex*) &a2[0], FFTW_ESTIMATE  );
+//    fftw_execute(plan);
+//  fftw_destroy_plan(plan);
+//  int b1 = 1;
+
+
+  PR100 pr;
+  pr.init("TCPIP0::192.168.70.42::5555::SOCKET");
 }
 //=======================================================
 MainWindow::~MainWindow()
@@ -99,7 +140,7 @@ void initialMatrix( int x, int x1, int y, int y1, QVector<complex<double>>& matr
 }
 
 // x, y  размерность "матрицы"
-void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, int &indx, int &indy){
+void AndreyOperation( uint x, uint y, QVector<complex<double>>& imageMatrix, QVector<complex<double>>& matrixCalibate, uint &indx, uint &indy){
 
     fftw_plan plan = fftw_plan_dft_2d(x, y, (fftw_complex*)&imageMatrix[0], (fftw_complex*)&imageMatrix[0],FFTW_FORWARD, FFTW_ESTIMATE);
     fftw_execute(plan);
@@ -117,9 +158,9 @@ void AndreyOperation( int x, int y, QVector<complex<double>>& imageMatrix, QVect
         indx = -1;
         indy = -1;
         //операция взятия по модулю
-        for (int a = 0; a < y; a++)
-            for(int b = 0; b < x; b++){
-                int n = a * x + b;
+        for (uint a = 0; a < y; a++)
+            for(uint b = 0; b < x; b++){
+                uint n = a * x + b;
                 double re = imageMatrix[n].real();
                 double im = imageMatrix[n].imag();
                 matrixMax = sqrt(re*re + im*im);

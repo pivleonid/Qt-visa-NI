@@ -60,6 +60,8 @@ public:
     QString WAI(){
         return (WriteCommand("*wai\n"));
     }
+
+
 };
 
 #endif // PR100_H

@@ -23,10 +23,10 @@ QString LeCroy::initLectoy(QString adder){
 
 
 
-    WriteCommand("C1:VOLT_DIV 10MV"); //Сколько клеток на осцил?  +
+    WriteCommand("C1:VOLT_DIV 100MV"); //Сколько клеток на осцил?  +
     WriteCommand("DOT_JOIN OFF"); //измерение без интерполяции
-    WriteCommand("TIME_DIV 2E-3"); //2мс на деление
-
+    WriteCommand("TIME_DIV 10E-3"); //2мс на деление
+ WriteCommand("MSIZ 10e6");
         return(IDN());
 }
 
@@ -42,7 +42,9 @@ void LeCroy::WaveForm( QString Channel, QString block, uint number,  QString Tim
     WriteCommand("TIME_DIV " + TimeDel );
     WriteCommand("MSIZ " + QString::number(number) );
     WriteCommand(Channel + ":WF? " + block);
-    QByteArray waveDat = ReadDevice_Array(number + 22);/*
+    QByteArray waveDat = ReadDevice_Array(number + 22);
+
+    /*
     WriteCommand("C1:INSPECT? Vertical_gain");
     QString VGain = ReadDevice(50);
     VGain =  VGain.mid(30,15);
@@ -55,6 +57,7 @@ void LeCroy::WaveForm( QString Channel, QString block, uint number,  QString Tim
        float count = waveDat[i] * Vgain - Voffset;
        waveVecDouble[j] = count;
    }*/
+    qDebug() << waveDat;
     int i = 0;
 }
 
