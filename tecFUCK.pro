@@ -39,3 +39,37 @@ HEADERS += \
 
 
 
+#DEFINES += LINUXBASE
+
+
+
+#QT += core gui
+
+#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+#TARGET = vxiqt
+#TEMPLATE = app
+
+#DEFINES += QT_DEPRECATED_WARNINGS
+
+
+#SOURCES += \
+#main.cpp \
+#mainwindow.cpp \
+#../../Загрузки/vxi11_1.10/vxi11_user.cc \
+#../../Загрузки/vxi11_1.10/vxi11_clnt.c \
+#../../Загрузки/vxi11_1.10/vxi11_xdr.c \
+#basedevice.cpp
+
+#HEADERS += \
+#mainwindow.h \
+#../../Загрузки/vxi11_1.10/vxi11_user.h \
+#../../Загрузки/vxi11_1.10/vxi11.h \
+#basedevice.h
+
+#FORMS += \
+#mainwindow.ui
+
+#DISTFILES += \
+#../../Загрузки/vxi11_1.10/vxi11.x \
+#../../Загрузки/vxi11_1.10/vxi11.x

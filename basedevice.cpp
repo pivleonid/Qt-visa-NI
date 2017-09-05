@@ -1,5 +1,7 @@
 #include "basedevice.h"
 
+#ifndef LINUXBASE
+
 BaseDevice::BaseDevice()
 {
 //    outBuffer = new QString();
@@ -74,6 +76,7 @@ BaseDevice::~BaseDevice(){
 //USB0::0x0699::0x03A6::C011549::INSTR
 /*===========================================================================*/
 QString BaseDevice::ConnectDevice( typeConnect tC , QString typeAdder){
+
     QString outBuffer;
     QString connect;
     if(tC == USB)
@@ -229,3 +232,130 @@ QByteArray BaseDevice::ReadDevice_Array( uint count){
 }
 
 
+#endif
+
+#ifdef LINUXBASE
+
+BaseDevice::BaseDevice(){
+flagConnect_ = false;
+link_ = new CLINK;
+ret_ = 666;
+
+
+}
+BaseDevice::~BaseDevice(){
+}
+
+
+QString BaseDevice::connectDevice(QString ip){
+deviceIp = ip;
+const char* device_ip = ip.toStdString().c_str();
+ret_ = vxi11_open_device(device_ip, link_);
+if (ret_ == 0) flagConnect_ = true;
+return QString(ret_);
+
+}
+QString BaseDevice::connectDevice(QString ip, QString deviceName){
+deviceIp = ip;
+const int count_ip = deviceName.count();
+std::string s = ip.toStdString();
+std::string s1 = deviceName.toStdString();
+const char* device_ip = new char[count_ip];
+device_ip = s.c_str();
+const char* device_Name_cc = s1.c_str();
+//снимаю константу
+char* deviceName_c = const_cast<char*>(device_Name_cc);
+ret_ = vxi11_open_device(device_ip, link_, deviceName_c);
+if (ret_ == 0) flagConnect_ = true;
+return QString(ret_);
+}
+QString BaseDevice::disconnectDevice(){
+const char* device_ip = deviceIp.toStdString().c_str();
+ret_ = vxi11_close_device(device_ip, link_);
+return QString(ret_);
+}
+
+QString BaseDevice::writeCommand(QString command){
+if(flagConnect_ == false) return QString(-1);
+command += "\n";
+const char* cmd = command.toStdString().c_str();
+ret_ = vxi11_send(link_, cmd);
+if(ret_ != 0) {
+qDebug() << "Error reseive";
+return QString(ret_);
+}
+return QString(ret_);
+}
+QString BaseDevice::readDevice( const int count){
+if(flagConnect_ == false) return QString(-1);
+char* read = new char[count] ;
+memset(read,'\0', count);
+ret_ = vxi11_receive(link_, read, count, 10);
+// if(ret_ < count) {
+// delete []read;
+// return ("Увеличить объем буфера" + QString(ret_));
+// }
+QString readStr(read);
+delete [] read;
+return readStr;
+}
+QString BaseDevice::writeAndRead(QString command, const int count){
+if(flagConnect_ == false) return QString(-1);
+char* read = new char[count];
+memset(read,'\0', count);
+const char* command_cc = command.toStdString().c_str();
+ret_ = vxi11_send_and_receive(link_, command_cc, read, count, 10 );
+if(ret_ != 0) {
+qDebug() << "Error transmit";
+return QString(ret_);
+}
+QString readStr(read);
+delete[] read;
+return readStr;
+
+}
+
+//
+QString BaseDevice::IDN(){
+writeCommand("*idn?");
+return (readDevice(50));
+}
+QString BaseDevice::RST(){
+writeCommand("*rst");
+return (readDevice(50));
+}
+QString BaseDevice::TST(){
+writeCommand("*tst?");
+return (readDevice(50));
+}
+QString BaseDevice::WAI(){
+writeCommand("*wai");
+return (readDevice(50));
+}
+QString BaseDevice::OPC(){
+writeCommand("*opc?");
+return (readDevice(50));
+}
+QString BaseDevice::BUSY(){
+writeCommand("*busy?");
+return (readDevice(50));
+}
+
+void BaseDevice::readDevice_Array(const int count, QByteArray& readData){
+if(flagConnect_ == false){
+readData[0] = -1;
+return;
+}
+char* read = new char[count] ;
+memset(read,'\0', count);
+ret_ = vxi11_receive(link_, read, count, 10);
+for (int i = 0; i < ret_; i++)
+readData[i] = read[i];
+delete [] read;
+
+}
+
+
+
+
+#endif

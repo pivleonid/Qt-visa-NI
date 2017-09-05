@@ -10,6 +10,10 @@
 /*==================================================================*/
 #ifndef BASEDEVICE_H
 #define BASEDEVICE_H
+
+#ifndef LINUXBASE
+
+
 #include <visa.h>
 #include <visatype.h>
 #include <memory.h>
@@ -132,5 +136,52 @@ private:
     ViUInt32	retCnt;
     QMap<int, QString> ErrorList;
 };
+
+#endif
+
+#ifdef LINUXBASE
+
+#include "QDebug"
+
+#include <../../Загрузки/vxi11_1.10/vxi11_user.h>
+
+#define BUF_LEN 100000
+
+class BaseDevice
+{
+
+CLINK* link_;
+bool flagConnect_;
+int ret_;
+//нужен для закрытия соединения
+QString deviceIp;
+public:
+BaseDevice();
+~BaseDevice();
+CLINK* getLink(){
+return link_;
+}
+//обычно deviceName = inst0
+//ежели возвращаемое значение != 0, то ошибка
+QString connectDevice( QString ip, QString deviceName);
+QString connectDevice(QString ip);
+QString disconnectDevice();
+
+//Шаблонные базовые команды
+QString IDN();
+QString RST();
+QString TST();
+QString WAI();
+QString OPC();
+QString BUSY();
+
+QString writeCommand(QString command);
+QString readDevice(const int count); //сколько символов принять
+QString writeAndRead(QString command, const int count);
+void readDevice_Array(const int count, QByteArray& readData);
+};
+
+
+#endif
 
 #endif // BASEDEVICE_H
